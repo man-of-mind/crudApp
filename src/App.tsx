@@ -1,26 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Home from './Components/Home/home';
+import {Routes, Route, Navigate} from 'react-router-dom';
+import UpdateItem from './Components/Update/updateItem';
+import DeleteItem from './Components/delete/deleteItem';
+import AddItem from './Components/addItem/AddItem';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<Navigate replace to="/home" />} />
+      <Route path="/home" element={<Home />} />
+      <Route path='/update_item/:id' element={<UpdateItem  />} />
+      <Route path='/delete_item/:id' element={<DeleteItem  />} />
+      <Route path='/item/new/' element={<AddItem />} />
+    </Routes>
   );
 }
-
 export default App;

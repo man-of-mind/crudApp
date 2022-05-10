@@ -13,7 +13,9 @@ const DeleteItem = () => {
             console.log(res)
             alert("Deleted Successfully");
             navigate('/home');
-        })
+        }).catch((error) => {
+            alert(`Error Occurred detailing: ${error.message}`);
+        });
     }
     const location:any = useLocation();
     return (

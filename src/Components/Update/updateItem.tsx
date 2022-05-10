@@ -1,27 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from './update.module.scss';
 import axios from "axios";
+import { useForm } from "react-hook-form";
 
 
 const baseURL = 'https://jsonplaceholder.typicode.com/posts'; 
 
 
 const UpdateItem = () => {
+    const { register, handleSubmit, formState: { errors }} = useForm();
     const location:any = useLocation();
-    const [title, setTitle] = useState(location.state.title);
-    const [body, setBody] = useState(location.state.body);
     const navigate = useNavigate()
 
     function updatePost(e: any) {
-        e.preventDefault();
         axios.put(`${baseURL}/${location.state.id}`, {
-            title: e.target[0].value,
-            body: e.target[1].value
+            title: e.title,
+            body: e.body
         }).then((response) => {
+            console.log(response.data);
             alert("Updated Successfully")
             navigate('/home');
-            console.log(response.data);
+        }).catch((err) => {
+            alert(`Error Occurred detailing: ${err.message}`)
         });
     }
    
@@ -29,23 +30,23 @@ const UpdateItem = () => {
         <div className={styles['container']}>
             <h2>Update a document</h2>
             <div>
-                <form onSubmit={updatePost}>
+                <form onSubmit={handleSubmit(updatePost)}>
                     <label htmlFor="title">Title: </label> <br />
                     <textarea  
-                        id="title" 
-                        name="title" 
-                        value={title}
+                        id="title"  
                         rows={4}
                         cols={40}
-                        onChange={(e) => setTitle(e.target.value)}></textarea> <br/>
+                        defaultValue={location.state.title}
+                        {...register("title", { required: true, minLength: 5 })}></textarea> <br/>
+                    {errors.title && <p className={styles['error-message']}>Please check the Title of the post</p>}
                     <label htmlFor="body">Body: </label> <br />
                     <textarea  
-                        id="body" 
-                        name="body" 
-                        value={body} 
+                        id="body"  
                         rows={6} 
                         cols={60}
-                        onChange={(e) => setBody(e.target.value)}></textarea> <br></br>
+                        defaultValue={location.state.body}
+                        {...register("body", { required: true, minLength: 5 })}></textarea> <br></br>
+                    {errors.body && <p className={styles['error-message']}>Please check the body of the post</p>}
                     <button type="submit">Update</button>
                 </form>
             </div>

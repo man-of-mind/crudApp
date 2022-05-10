@@ -36,7 +36,12 @@ function Home() {
                             <div className={styles['button']}>Update</div>
                     </Link>
                 </td>
-                <td><div className={styles['button']}>Delete</div></td>
+                <td><Link to={`/delete_item/${item.id}`} 
+                        style={{textDecoration: 'none'}} 
+                        state={{title: `${item.title}`, id: `${item.id}`}}>
+                            <div className={styles['button']}>Delete</div>
+                    </Link>
+                </td>
             </tr>
         );
     })

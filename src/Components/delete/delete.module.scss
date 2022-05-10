@@ -1,0 +1,23 @@
+.delete {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
+    .buttons {
+        display: flex;
+        width: 200px;
+        justify-content: space-between;
+        align-items: center;
+        button {
+            text-decoration: none;
+            padding: 12px 32px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            outline: none;
+            background: linear-gradient( 90deg, rgba(93, 12, 255, 1) 0%, rgba(155, 0, 250, 1) 100%);
+            color: #fff;
+        }
+    }
+}

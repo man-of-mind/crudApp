@@ -19,7 +19,7 @@ const UpdateItem = () => {
             title: e.target[0].value,
             body: e.target[1].value
         }).then((response) => {
-            alert("update successfully")
+            alert("Updated Successfully")
             navigate('/home');
             console.log(response.data);
         });
@@ -27,23 +27,25 @@ const UpdateItem = () => {
    
     return (
         <div className={styles['container']}>
-            <h3>Update a document</h3>
+            <h2>Update a document</h2>
             <div>
                 <form onSubmit={updatePost}>
-                    <label htmlFor="title">Title: </label>
-                    <input 
-                        type="text" 
+                    <label htmlFor="title">Title: </label> <br />
+                    <textarea  
                         id="title" 
                         name="title" 
                         value={title}
-                        onChange={(e) => setTitle(e.target.value)}></input> <br/>
-                    <label htmlFor="body">Body: </label>
-                    <input 
-                        type="text" 
+                        rows={4}
+                        cols={40}
+                        onChange={(e) => setTitle(e.target.value)}></textarea> <br/>
+                    <label htmlFor="body">Body: </label> <br />
+                    <textarea  
                         id="body" 
                         name="body" 
-                        value={body}
-                        onChange={(e) => setBody(e.target.value)}></input> <br></br>
+                        value={body} 
+                        rows={6} 
+                        cols={60}
+                        onChange={(e) => setBody(e.target.value)}></textarea> <br></br>
                     <button type="submit">Update</button>
                 </form>
             </div>

@@ -1,19 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import styles from './home.module.scss';
 import { Link } from 'react-router-dom';
-import { getData } from '../../utils/serverCom';
+import axios from 'axios'
 
-
-const response:any = getData(); 
-console.log(response)  
+const baseURL = 'https://jsonplaceholder.typicode.com/posts'; 
+interface schema {
+    id: number,
+    userId: number,
+    body: string,
+    title: string
+}
 
 function Home() {
-    
+    const [post, setPost] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        axios.get(baseURL).then((response) => {
+            setPost(response.data);
+            setLoading(false)
+        });
+    }, []);
+
+    const data:schema[] = post.slice(0, 10);
+    const tableData = data.map(item => {
+        return (
+            <tr key={item.id}>
+                <td>{item.id}</td>
+                <td>{item.userId}</td>
+                <td>{item.title}</td>
+                <td>{item.body}</td>
+                <td><Link to={`/update_item/${item.id}`} 
+                        style={{textDecoration: 'none'}} 
+                        state={{title: `${item.title}`, body: `${item.body}`, id: `${item.id}`}}>
+                            <div className={styles['button']}>Update</div>
+                    </Link>
+                </td>
+                <td><div className={styles['button']}>Delete</div></td>
+            </tr>
+        );
+    })
     return (
         <div className={styles["home"]}>
         <h3>CRUD APP</h3>
         <Link to='/item/new' style={{textDecoration: 'none'}}><div className={styles['button']}>Create</div></Link>
-        <table>
+        <>{!loading ? (<table>
         <tr>
             <th>Id</th>
             <th>User Id</th>
@@ -22,15 +53,9 @@ function Home() {
             <th>Update</th>
             <th>Delete</th>
         </tr>
-        <tr>
-            <td>1</td>
-            <td>1</td>
-            <td>Peace in our nation Nigeria</td>
-            <td>Peace in the whole world because God wants it to be, Lord send your peace to the whole world, let us feel your impact</td>
-            <td><div className={styles['button']}>Update</div></td>
-            <td><div className={styles['button']}>Delete</div></td>
-        </tr>
-        </table>
+        {tableData}
+        </table>) : (<div>Loading...</div>)}</>
+        
         </div>
     );
 }

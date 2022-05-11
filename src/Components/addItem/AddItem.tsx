@@ -16,7 +16,7 @@ const AddItem = () => {
         }).then((res) => {
             console.log(res.data);
             alert("Added Post Successfully");
-            navigate("/home");
+            navigate("/crudApp/home");
         }).catch((error) => {
             alert(`Error Occurred detailing: ${error.message}`)
         });

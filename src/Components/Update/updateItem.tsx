@@ -20,7 +20,7 @@ const UpdateItem = () => {
         }).then((response) => {
             console.log(response.data);
             alert("Updated Successfully")
-            navigate('/home');
+            navigate('/crudApp/home');
         }).catch((err) => {
             alert(`Error Occurred detailing: ${err.message}`)
         });

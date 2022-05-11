@@ -7,12 +7,12 @@ import axios from "axios";
 const DeleteItem = () => {
     const baseURL = 'https://jsonplaceholder.typicode.com/posts'; 
     const navigate = useNavigate();
-    const handleNo = () => navigate("/home");
+    const handleNo = () => navigate("/crudApp/home");
     const handleYes = () => {
         axios.delete(`${baseURL}/${location.state.id}`).then((res) => {
             console.log(res)
             alert("Deleted Successfully");
-            navigate('/home');
+            navigate('/crudApp/home');
         }).catch((error) => {
             alert(`Error Occurred detailing: ${error.message}`);
         });

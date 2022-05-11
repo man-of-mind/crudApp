@@ -32,13 +32,13 @@ function Home() {
                 <td>{item.userId}</td>
                 <td>{item.title}</td>
                 <td>{item.body}</td>
-                <td><Link to={`/update_item/${item.id}`} 
+                <td><Link to={`/crudApp/update_item/${item.id}`} 
                         style={{textDecoration: 'none'}} 
                         state={{title: `${item.title}`, body: `${item.body}`, id: `${item.id}`}}>
                             <div className={styles['button']}>Update</div>
                     </Link>
                 </td>
-                <td><Link to={`/delete_item/${item.id}`} 
+                <td><Link to={`/crudApp/delete_item/${item.id}`} 
                         style={{textDecoration: 'none'}} 
                         state={{title: `${item.title}`, id: `${item.id}`}}>
                             <div className={styles['button']}>Delete</div>
@@ -50,7 +50,7 @@ function Home() {
     return (
         <div className={styles["home"]}>
         <h3>CRUD APP</h3>
-        <Link to='/item/new' style={{textDecoration: 'none'}}><div className={styles['button']}>Create</div></Link>
+        <Link to='/crudApp/item/new' style={{textDecoration: 'none'}}><div className={styles['button']}>Create</div></Link>
         <>{!loading ? (<table>
         <tr>
             <th>Id</th>

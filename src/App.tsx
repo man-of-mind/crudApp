@@ -8,11 +8,11 @@ import AddItem from './Components/addItem/AddItem';
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate replace to="/home" />} />
-      <Route path="/home" element={<Home />} />
-      <Route path='/update_item/:id' element={<UpdateItem  />} />
-      <Route path='/delete_item/:id' element={<DeleteItem  />} />
-      <Route path='/item/new/' element={<AddItem />} />
+      <Route path="/crudApp/" element={<Navigate replace to="/crudApp/home" />} />
+      <Route path="/crudApp/home" element={<Home />} />
+      <Route path='/crudApp/update_item/:id' element={<UpdateItem  />} />
+      <Route path='/crudApp/delete_item/:id' element={<DeleteItem  />} />
+      <Route path='/crudApp/item/new/' element={<AddItem />} />
     </Routes>
   );
 }

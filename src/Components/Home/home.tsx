@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styles from './home.module.scss';
 import { Link } from 'react-router-dom';
-import axios from 'axios'
+import axios from 'axios';
+import Error from '../errorComp/error';
 
 const baseURL = 'https://jsonplaceholder.typicode.com/posts'; 
 interface schema {
@@ -14,13 +15,16 @@ interface schema {
 function Home() {
     const [post, setPost] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         axios.get(baseURL).then((response) => {
+            console.log(response)
             setPost(response.data);
             setLoading(false)
         }).catch((err) => {
-            alert(`Error Ocurred detailing: ${err.message}`)
+            setError(err.message);
+//            alert(`Error Ocurred detailing: ${err.message}`)
         });
     }, []);
 
@@ -48,22 +52,27 @@ function Home() {
         );
     })
     return (
-        <div className={styles["home"]}>
-        <h3>CRUD APP</h3>
-        <Link to='/crudApp/item/new' style={{textDecoration: 'none'}}><div className={styles['button']}>Create</div></Link>
-        <>{!loading ? (<table>
-        <tr>
-            <th>Id</th>
-            <th>User Id</th>
-            <th>Title</th>
-            <th>Body</th>
-            <th>Update</th>
-            <th>Delete</th>
-        </tr>
-        {tableData}
-        </table>) : (<div>Loading...</div>)}</>
-        
-        </div>
+        <>{
+            error !== null ? 
+            <div>
+                <Error errorMessage={error}/>
+            </div>  : 
+            <div className={styles["home"]}>
+                <h3>CRUD APP</h3>
+                    <Link to='/crudApp/item/new' style={{textDecoration: 'none'}}><div className={styles['button']}>Create</div></Link>
+                <>{!loading ? (<table>
+                <tr>
+                    <th>Id</th>
+                    <th>User Id</th>
+                    <th>Title</th>
+                    <th>Body</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+                {tableData}
+                </table>) : (<div>Loading...</div>)}</>
+            </div>
+        }</>
     );
 }
 export default Home;
